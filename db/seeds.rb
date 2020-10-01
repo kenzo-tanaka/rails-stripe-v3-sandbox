@@ -8,4 +8,6 @@
 
 Product.create(name: 'iPhone', description: 'apple社が製造しているスマホ', amount: 100)
 Product.create(name: 'iPad', description: 'apple社が製造しているタブレット', amount: 1000)
-Product.create(name: 'MacBook', description: 'apple社が製造しているパソコン', amount: 10000)
+Product.create(name: 'MacBook', description: 'apple社が製造しているパソコン', amount: 10_000)
+User.create(email: 'admin@example.com', password: 'password')
+User.create(email: 'user@example.com', password: 'password')
