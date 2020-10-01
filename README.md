@@ -23,3 +23,8 @@ cp -a .env.sample .env
 overmind s
 open http://localhost:3000
 ```
+
+サンプルクレジットカード番号
+```
+424242424242 04/24 4242
+```
