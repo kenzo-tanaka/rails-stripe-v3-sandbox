@@ -1,0 +1,30 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+
+AllCops:
+  TargetRubyVersion: 2.7
+  NewCops: enable
+  Exclude:
+    - app/channels/**/*
+    - node_modules/**/*
+    - bin/*
+    - test/**/*
+    - spec/**/*
+    - lib/*
+    - db/migrate/*
+    - db/schema.rb
+    - lib/tasks/*
+    - public/*
+    - tmp/*
+    - vendor/**/*
+    - config/spring.rb 
+
+Layout/LineLength:
+  Max: 180
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
