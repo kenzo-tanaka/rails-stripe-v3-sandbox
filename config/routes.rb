@@ -5,4 +5,5 @@ Rails.application.routes.draw do
     resource :purchase
   end
   resources :movies
+  resource :plan
 end

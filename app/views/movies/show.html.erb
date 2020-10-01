@@ -12,6 +12,7 @@
       <%= image_tag @movie.video_url, width: 400 %>
     <% else %>
       <p>映画を見るには契約してください</p>
+      <p><%= link_to '料金表', plan_path %></p>
     <% end %>
   </div>
 </p>

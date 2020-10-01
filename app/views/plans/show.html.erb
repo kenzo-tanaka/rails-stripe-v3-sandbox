@@ -1,0 +1,8 @@
+<h1>Plan</h1>
+<hr>
+<% @plans.each do |plan| %>
+  <p><%= plan.name %></p>
+  <p><%= formatted_amount (plan.amount) %> / <%= plan.interval %></p>
+  <%= link_to "契約する", "#" %>
+  <hr>
+<% end %>
