@@ -1,0 +1,21 @@
+<h1><%= @product.name %> を購入</h1>
+
+<%= form_with url: product_purchase_path(@product), local: true, id: "payment-form", data: {payment_intent_id: @payment_intent.client_secret} do | form | %>
+
+  <div>
+    <label for="card-element">クレジットカード番号</label>
+    <div id="card-element"></div>
+    <div id="card-errors"></div>
+  </div>
+
+
+  <div>
+    <label>クレジットカードに記載されている名前</label>
+    <%= form.text_field :name_on_card %>
+  </div>
+
+  <div>
+    <%= form.hidden_field :payment_intent_id, value: @payment_intent.id %>
+    <button>決済を確定</button>
+  </div>
+<% end %>

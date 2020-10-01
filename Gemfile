@@ -11,12 +11,14 @@ gem 'puma', '~> 4.1' # Use Puma as the app server
 gem 'sass-rails', '>= 6' # Use SCSS for stylesheets
 gem 'webpacker', '~> 5.2' # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 # gem 'bcrypt', '~> 3.1.7' # Use Active Model has_secure_password
+gem 'any_login'
 gem 'bootsnap', '>= 1.4.2', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'devise' # Flexible authentication solution for Rails
-gem 'any_login'
+gem 'stripe' # Ruby library for the Stripe API.
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'dotenv-rails'
   gem 'pry-rails' # Rails >= 3 pry initializer
 end
 

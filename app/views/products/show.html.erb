@@ -10,8 +10,12 @@
 
 <p>
   <strong>Amount:</strong>
-  <%= @product.amount %>
+  <%= formatted_amount @product.amount %>
 </p>
+
+<div>
+  <%= link_to '購入', product_purchase_path(@product) %>
+</div>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

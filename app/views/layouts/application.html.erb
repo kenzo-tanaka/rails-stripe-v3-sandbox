@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsStripeSandbox</title>
+    <title>Rails Stripe Sandbox</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag 'application', defer: true %>
+    <script src="https://js.stripe.com/v3/"></script>
   </head>
 
   <body>
