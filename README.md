@@ -19,6 +19,15 @@ bin/rails db:create && bin/rails db:migrate && bin/rails db:seed
 cp -a .env.sample .env
 ```
 
+https://dashboard.stripe.com/test/products でProductを作成して、app_idを設定してください
+
+```ruby
+# db/seeds.rb
+Plan.create(name: '1年プラン', amount: 1000, interval: '年', stripe_id: 'price_1HXicJDWRM6gVeDnWPDKbB7W')
+Plan.create(name: '毎月プラン', amount: 100, interval: '月', stripe_id: 'price_1HXia5DWRM6gVeDnvhULmybr')
+
+```
+
 ```
 overmind s
 open http://localhost:3000
