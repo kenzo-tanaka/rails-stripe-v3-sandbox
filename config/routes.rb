@@ -4,4 +4,7 @@ Rails.application.routes.draw do
   resources :products do
     resource :purchase
   end
+  resources :movies
+  resource :plan
+  resource :subscription
 end

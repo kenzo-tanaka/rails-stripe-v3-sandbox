@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_045816) do
+ActiveRecord::Schema.define(version: 2020_10_01_100802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "charges", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "stripe_id"
+    t.integer "amount"
+    t.integer "amount_refunded"
+    t.string "card_brand"
+    t.string "card_last4"
+    t.string "card_exp_month"
+    t.string "card_exp_year"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_charges_on_user_id"
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "video_url", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "orders", force: :cascade do |t|
     t.bigint "product_id", null: false
@@ -30,12 +51,33 @@ ActiveRecord::Schema.define(version: 2020_10_01_045816) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "amount", null: false
+    t.string "interval", null: false
+    t.string "stripe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.integer "amount", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "stripe_id"
+    t.string "stripe_plan"
+    t.string "status"
+    t.datetime "trial_ends_at"
+    t.datetime "ends_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,10 +88,17 @@ ActiveRecord::Schema.define(version: 2020_10_01_045816) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "stripe_id"
+    t.string "card_brand"
+    t.string "card_last4"
+    t.string "card_exp_month"
+    t.string "card_exp_year"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "charges", "users"
   add_foreign_key "orders", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "subscriptions", "users"
 end

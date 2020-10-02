@@ -11,3 +11,9 @@ Product.create(name: 'iPad', description: 'apple社が製造しているタブ�
 Product.create(name: 'MacBook', description: 'apple社が製造しているパソコン', amount: 10_000)
 User.create(email: 'admin@example.com', password: 'password')
 User.create(email: 'user@example.com', password: 'password')
+Movie.create(title: 'バトル・オブ・シリコンバレー', video_url: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')
+Movie.create(title: 'シリコンバレーを抜け駆けろ！ ', video_url: 'https://images.unsplash.com/photo-1601518701786-0efa8a946253?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1948&q=80')
+Movie.create(title: 'マネーボール', video_url: 'https://images.unsplash.com/photo-1601363563276-8a137aa7c32c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2378&q=80')
+# TODO: https://dashboard.stripe.com/test/products でProductを作成して、app_idを設定してください
+Plan.create(name: '1年プラン', amount: 1000, interval: '年', stripe_id: 'price_1HXicJDWRM6gVeDnWPDKbB7W')
+Plan.create(name: '毎月プラン', amount: 100, interval: '月', stripe_id: 'price_1HXia5DWRM6gVeDnvhULmybr')

@@ -1,0 +1,24 @@
+<h2><%= @plan.name %></h2>
+<p><%= formatted_amount @plan.amount %> / <%= @plan.interval %></p>
+
+
+
+<%= form_with url: subscription_path, local: true, id: "subscription-payment-form" do | form | %>
+  <div>
+    <label for="card-element">クレジットカード情報</label>
+    <div id="card-element"></div>
+    <div id="card-errors"></div>
+  </div>
+
+
+  <div>
+    <label>クレジットカードに記載されている名前</label>
+    <%= form.text_field :name_on_card, id: "name_on_card" %>
+  </div>
+
+  <div>
+    <%= form.hidden_field :plan_id, value: @plan.id %>
+    <%= form.submit "サプスクを確定する" %>
+  </div>
+<% end %>
+
