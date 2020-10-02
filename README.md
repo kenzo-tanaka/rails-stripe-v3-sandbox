@@ -1,7 +1,7 @@
 # Rails6 ×Stripe V3のサンプル
 
-- Onetime 決済
-- Subscription 決済
+- Onetime 決済 https://github.com/akito/rails-stripe-sandbox
+- Subscription 決済 https://github.com/akito/rails-stripe-sandbox/pull/5
 - 領収書発行機能
 
 
