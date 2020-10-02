@@ -17,6 +17,8 @@ require('dotenv').config()
 const cardElement = document.querySelector("#card-element")
 
 if (cardElement !== null) { setupStripe()}
+
+
 function setupStripe(){
     const public_key = process.env.STRIPE_PUBLIC_KEY
     const stripe = Stripe(public_key)
@@ -33,49 +35,60 @@ function setupStripe(){
         }
     })
 
+    // for one time payment
+    const oneTimeform = document.querySelector("#payment-form")
+    if (oneTimeform){
+        oneTimeform.addEventListener("submit", (event) => {
+            event.preventDefault()
+            let name = oneTimeform.querySelector("#name_on_card").value
+            let data = {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: name
+                    }
+                }
+            }
+
+            console.log(oneTimeform.dataset.paymentIntentId)
+            stripe.confirmCardPayment(oneTimeform.dataset.paymentIntentId, data).then((result) => {
+                if (result.error) {
+                    const errorElement = document.getElementById("card-errors")
+                    errorElement.textContent = result.error.message
+                } else {
+                    oneTimeform.submit()
+                }
+            })
+        })
+    }
+
+
     const form = document.querySelector("#subscription-payment-form")
 
-    form.addEventListener("submit", (event) => {
-        event.preventDefault()
-        let name = form.querySelector("#name_on_card").value
+    if(form){
+        form.addEventListener("submit", (event) => {
+            event.preventDefault()
+            let name = form.querySelector("#name_on_card").value
 
-        // for one time payment
-        // let data = {
-        //     payment_method: {
-        //         card: card,
-        //         billing_details: {
-        //             name: name
-        //         }
-        //     }
-        // }
-        //
-        // stripe.confirmCardPayment(form.dataset.paymentIntentId, data).then((result) => {
-        //     if (result.error) {
-        //         const errorElement = document.getElementById("card-errors")
-        //         errorElement.textContent = result.error.message
-        //     } else {
-        //         form.submit()
-        //     }
-        // })
+            stripe.createPaymentMethod(
+                {
+                    type: 'card',
+                    card: card,
+                    billing_details: {
+                        name: name,
+                    },
+                }).then((result) => {
+                if (result.error) {
+                    displayError.textContent = result.error.message
+                } else {
+                    console.log(result)
+                    addHiddenField(form, "payment_method_id", result.paymentMethod.id)
+                    form.submit()
+                }
+            })
 
-        stripe.createPaymentMethod(
-            {
-                type: 'card',
-                card: card,
-                billing_details: {
-                    name: name,
-                },
-            }).then((result) => {
-            if (result.error) {
-                displayError.textContent = result.error.message
-            } else {
-                console.log(result)
-                addHiddenField(form, "payment_method_id", result.paymentMethod.id)
-                form.submit()
-            }
         })
-
-    })
+    }
 }
 
 function addHiddenField(form, name, value) {
