@@ -14,7 +14,7 @@ require('dotenv').config()
 // const imagePath = (name) => images(name, true)
 
 // for stripe
-const cardElement = document.querySelector("#payment-form")
+const cardElement = document.querySelector("#card-element")
 
 if (cardElement !== null) { setupStripe()}
 function setupStripe(){
@@ -39,20 +39,37 @@ function setupStripe(){
         event.preventDefault()
         let name = form.querySelector("#name_on_card").value
 
-        let payment_data = {
-            payment_method: {
+        // for one time payment
+        // let data = {
+        //     payment_method: {
+        //         card: card,
+        //         billing_details: {
+        //             name: name
+        //         }
+        //     }
+        // }
+        //
+        // stripe.confirmCardPayment(form.dataset.paymentIntentId, data).then((result) => {
+        //     if (result.error) {
+        //         const errorElement = document.getElementById("card-errors")
+        //         errorElement.textContent = result.error.message
+        //     } else {
+        //         form.submit()
+        //     }
+        // })
+
+        stripe.createPaymentMethod(
+            {
+                type: 'card',
                 card: card,
                 billing_details: {
-                    name: name
-                }
-            }
-        }
-
-        payment_data.payment_method_data.type = "card"
-        stripe.confirmCardPayment(payment_data.payment_method_data).then((result) => {
+                    name: name,
+                },
+            }).then((result) => {
             if (result.error) {
                 displayError.textContent = result.error.message
             } else {
+                console.log(result)
                 addHiddenField(form, "payment_method_id", result.paymentMethod.id)
                 form.submit()
             }
